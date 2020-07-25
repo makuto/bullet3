@@ -216,4 +216,16 @@ public:
 	virtual void* castRay(const btVector3& from, const btVector3& to, btVehicleRaycasterResult& result);
 };
 
+struct btWheelContactPoint
+{
+	btRigidBody* m_body0;
+	btRigidBody* m_body1;
+	btVector3 m_frictionPositionWorld;
+	btVector3 m_frictionDirectionWorld;
+	btScalar m_jacDiagABInv;
+	btScalar m_maxImpulse;
+
+	btWheelContactPoint(btRigidBody* body0, btRigidBody* body1, const btVector3& frictionPosWorld, const btVector3& frictionDirectionWorld, btScalar maxImpulse);
+};
+
 #endif  //BT_RAYCASTVEHICLE_H

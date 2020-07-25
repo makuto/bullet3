@@ -435,28 +435,18 @@ void btRaycastVehicle::updateSuspension(btScalar deltaTime)
 	}
 }
 
-struct btWheelContactPoint
+btWheelContactPoint::btWheelContactPoint(btRigidBody* body0, btRigidBody* body1, const btVector3& frictionPosWorld, const btVector3& frictionDirectionWorld, btScalar maxImpulse)
+	: m_body0(body0),
+	  m_body1(body1),
+	  m_frictionPositionWorld(frictionPosWorld),
+	  m_frictionDirectionWorld(frictionDirectionWorld),
+	  m_maxImpulse(maxImpulse)
 {
-	btRigidBody* m_body0;
-	btRigidBody* m_body1;
-	btVector3 m_frictionPositionWorld;
-	btVector3 m_frictionDirectionWorld;
-	btScalar m_jacDiagABInv;
-	btScalar m_maxImpulse;
-
-	btWheelContactPoint(btRigidBody* body0, btRigidBody* body1, const btVector3& frictionPosWorld, const btVector3& frictionDirectionWorld, btScalar maxImpulse)
-		: m_body0(body0),
-		  m_body1(body1),
-		  m_frictionPositionWorld(frictionPosWorld),
-		  m_frictionDirectionWorld(frictionDirectionWorld),
-		  m_maxImpulse(maxImpulse)
-	{
-		btScalar denom0 = body0->computeImpulseDenominator(frictionPosWorld, frictionDirectionWorld);
-		btScalar denom1 = body1->computeImpulseDenominator(frictionPosWorld, frictionDirectionWorld);
-		btScalar relaxation = 1.f;
-		m_jacDiagABInv = relaxation / (denom0 + denom1);
-	}
-};
+	btScalar denom0 = body0->computeImpulseDenominator(frictionPosWorld, frictionDirectionWorld);
+	btScalar denom1 = body1->computeImpulseDenominator(frictionPosWorld, frictionDirectionWorld);
+	btScalar relaxation = 1.f;
+	m_jacDiagABInv = relaxation / (denom0 + denom1);
+}
 
 btScalar calcRollingFriction(btWheelContactPoint& contactPoint, int numWheelsOnGround);
 btScalar calcRollingFriction(btWheelContactPoint& contactPoint, int numWheelsOnGround)
