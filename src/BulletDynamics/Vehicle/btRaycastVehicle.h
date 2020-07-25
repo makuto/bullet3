@@ -228,4 +228,6 @@ struct btWheelContactPoint
 	btWheelContactPoint(btRigidBody* body0, btRigidBody* body1, const btVector3& frictionPosWorld, const btVector3& frictionDirectionWorld, btScalar maxImpulse);
 };
 
+btScalar calcRollingFriction(btWheelContactPoint& contactPoint, int numWheelsOnGround);
+
 #endif  //BT_RAYCASTVEHICLE_H

@@ -448,7 +448,6 @@ btWheelContactPoint::btWheelContactPoint(btRigidBody* body0, btRigidBody* body1,
 	m_jacDiagABInv = relaxation / (denom0 + denom1);
 }
 
-btScalar calcRollingFriction(btWheelContactPoint& contactPoint, int numWheelsOnGround);
 btScalar calcRollingFriction(btWheelContactPoint& contactPoint, int numWheelsOnGround)
 {
 	btScalar j1 = 0.f;
